@@ -6,98 +6,205 @@ board = [['','','','','',''],['','','','','',''],['','','','','',''],
          ['','','','','','']]
 
 def createBoard():
-    print("   A   B   C   D   E   F   G  ", end = "")
-    for x in range(rows):
-        print("\n +---+---+---+---+---+---+---+")
+    print("    A     B     C     D     E     F     G  ", end = "")
+    for y in range(rows):
+        print("\n +-----+-----+-----+-----+-----+-----+-----+")   
         print(' |', end = '')
-        for y in range(cols):
-            if board[y][x] == 'R':
-                print(' ' + board[y][x], end = ' |')
-            elif board[y][x] == 'Y':
-                print(' ' + board[y][x], end = ' |')
+        for x in range(cols):
+            if board[x][y] == '🔴':
+                print('  ' + board[x][y], end = ' |')
+            elif board[x][y] == '🟡':
+                print('  ' + board[x][y], end = ' |')
             else:
-                print(' ' + board[y][x], end = '  |')
-    print("\n +---+---+---+---+---+---+---+")
+                print(' ' + board[x][y], end = '    |')
+    print("\n +-----+-----+-----+-----+-----+-----+-----+")
 
-def tokenDrop(player,column,board):
+def tokenDrop(player, column, board):
     if column == 'A':
-        for i in range(1,len(board[0])):
-            #if there is item in spot, places token in next open spot
-            if board[0][i] != '': 
-                board[0].insert(i-1,player)
         #if last slot is empty aka column empty, token places on last slot
         if board[0][5] == '':
-            board[0].insert(5,player)
-        if board[0][0] != '':
-            print('choose another column') 
-            #add code here to make it so u can't place items in empty row
+            board[0][5] = player
+            return True
+        else:
+            for i in range(1,len(board[0])):
+                #if there is item in spot, places token in next open spot
+                if board[0][i] != '': 
+                    board[0][i-1] = player
+                    return True
     if column == 'B':
-        for i in range(1,len(board[1])):
-            #if there is item in spot, places token in next open spot
-            if board[1][i] != '': 
-                board[1].insert(i-1,player)
         #if last slot is empty aka column empty, token places on last slot
         if board[1][5] == '':
-            board[1].insert(5,player)
-        if board[1][0] != '':
-            print('choose another column') 
-            #add code here to make it so u can't place items in empty row
+            board[1][5] = player
+            return True
+        else:
+            for i in range(1,len(board[1])):
+                #if there is item in spot, places token in next open spot
+                if board[1][i] != '': 
+                    board[1][i-1] = player
+                    return True
     if column == 'C':
-        for i in range(1,len(board[2])):
-            #if there is item in spot, places token in next open spot
-            if board[2][i] != '': 
-                board[2].insert(i-1,player)
         #if last slot is empty aka column empty, token places on last slot
         if board[2][5] == '':
-            board[2].insert(5,player)
-        if board[2][0] != '':
-            print('choose another column') 
-            #add code here to make it so u can't place items in empty row
+            board[2][5] = player
+            return True
+        else:
+            for i in range(1,len(board[2])):
+                #if there is item in spot, places token in next open spot
+                if board[2][i] != '': 
+                    board[2][i-1] = player
+                    return True
     if column == 'D':
-        for i in range(1,len(board[3])):
-            #if there is item in spot, places token in next open spot
-            if board[3][i] != '': 
-                board[3].insert(i-1,player)
         #if last slot is empty aka column empty, token places on last slot
         if board[3][5] == '':
-            board[3].insert(5,player)
-        if board[3][0] != '':
-            print('choose another column') 
-            #add code here to make it so u can't place items in empty row
+            board[3][5] = player
+            return True
+        else:
+            for i in range(1,len(board[3])):
+                #if there is item in spot, places token in next open spot
+                if board[3][i] != '': 
+                    board[3][i-1] = player
+                    return True
     if column == 'E':
-        for i in range(1,len(board[4])):
-            #if there is item in spot, places token in next open spot
-            if board[4][i] != '': 
-                board[4].insert(i-1,player)
         #if last slot is empty aka column empty, token places on last slot
         if board[4][5] == '':
-            board[4].insert(5,player)
-        if board[4][0] != '':
-            print('choose another column') 
-            #add code here to make it so u can't place items in empty row
+            board[4][5] = player
+            return True
+        else:
+            for i in range(1,len(board[4])):
+                #if there is item in spot, places token in next open spot
+                if board[4][i] != '': 
+                    board[4][i-1] = player
+                    return True
     if column == 'F':
-        for i in range(1,len(board[5])):
-            #if there is item in spot, places token in next open spot
-            if board[5][i] != '': 
-                board[5].insert(i-1,player)
         #if last slot is empty aka column empty, token places on last slot
         if board[5][5] == '':
-            board[5].insert(5,player)
-        if board[5][0] != '':
-            print('choose another column') 
-            #add code here to make it so u can't place items in empty row
+            board[5][5] = player
+            return True
+        else:
+            for i in range(1,len(board[5])):
+                #if there is item in spot, places token in next open spot
+                if board[5][i] != '': 
+                    board[5][i-1] = player
+                    return True
+        
     if column == 'G':
-        for i in range(1,len(board[6])):
-            #if there is item in spot, places token in next open spot
-            if board[6][i] != '': 
-                board[6].insert(i-1,player)
         #if last slot is empty aka column empty, token places on last slot
         if board[6][5] == '':
-            board[6].insert(5,player)
-        if board[6][0] != '':
-            print('choose another column') 
-            #add code here to make it so u can't place items in empty row
+            board[6][5] = player
+            return True
+        else:
+            for i in range(1,len(board[6])):
+                #if there is item in spot, places token in next open spot
+                if board[6][i] != '': 
+                    board[6][i-1] = player
+                    return True
+    return False
+        
+def game_over(board):
+    boardX = len(board)
+    boardY = len(board[0])
+    red_victory_msg = "🔴 Red Wins 🔴"
+    yellow_victory_msg = "🟡 Yellow Wins 🟡"
+    for x in range(boardX):
+        for y in range(boardY - 3):
+            #checks for vertical win condition
+            if board[x][y] == '🔴' and board[x][y+1] == '🔴' and board[x][y+2] == '🔴' and board[x][y+3] == '🔴':
+                print(red_victory_msg)
+                return True
+            if board[x][y] == '🟡' and board[x][y+1] == '🟡' and board[x][y+2] == '🟡' and board[x][y+3] == '🟡':
+                print(yellow_victory_msg)
+                return True
+    for y in range(boardY):
+        for x in range(boardX - 3):
+            #checks for horizonal win condition
+            if board[x][y] == '🔴' and board[x+1][y] == '🔴' and board[x+2][y] == '🔴' and board[x+3][y] == '🔴':
+                print(red_victory_msg)
+                return True
+            if board[x][y] == '🟡' and board[x+1][y] == '🟡' and board[x+2][y] == '🟡' and board[x+3][y] == '🟡':
+                print(yellow_victory_msg)
+                return True
+    for x in range(boardX - 3):
+        for y in range(3, boardY):
+            #checks for left to right upward diag win
+            '''
+              A   B   C   D   E   F   G  
+            +---+---+---+---+---+---+---+
+            |   |   |   | 0 |   |   |   | 0
+            +---+---+---+---+---+---+---+
+            |   |   | 0 | 0 |   |   |   | 1
+            +---+---+---+---+---+---+---+
+            |   | 0 | 0 | 0 |   |   |   | 2
+            +---+---+---+---+---+---+---+
+            | 0 | 0 | 0 |   |   |   |   | 3
+            +---+---+---+---+---+---+---+
+            | 0 | 0 |   |   |   |   |   | 4
+            +---+---+---+---+---+---+---+
+            | 0 |   |   |   |   |   |   | 5
+            +---+---+---+---+---+---+---+
+              0   1   2   3   4   5   6
+            '''
+            if board[x][y] == '🔴' and board[x+1][y-1] == '🔴' and board[x+2][y-2] == '🔴' and board[x+3][y-3] == '🔴':
+                print(red_victory_msg)
+                return True
+            if board[x][y] == '🟡' and board[x+1][y-1] == '🟡' and board[x+2][y-2] == '🟡' and board[x+3][y-3] == '🟡':
+                print(yellow_victory_msg)
+                return True
+    for x in range(boardX - 3):
+        for y in range(boardY - 3):
+            '''
+              A   B   C   D   E   F   G  
+            +---+---+---+---+---+---+---+
+            | 0 |   |   |   |   |   |   | 0
+            +---+---+---+---+---+---+---+
+            | 0 | 0 |   |   |   |   |   | 1
+            +---+---+---+---+---+---+---+
+            | 0 | 0 | 0 |   |   |   |   | 2
+            +---+---+---+---+---+---+---+
+            |   | 0 | 0 | 0 |   |   |   | 3
+            +---+---+---+---+---+---+---+
+            |   |   | 0 | 0 |   |   |   | 4
+            +---+---+---+---+---+---+---+
+            |   |   |   | 0 |   |   |   | 5
+            +---+---+---+---+---+---+---+
+              0   1   2   3   4   5   6
+            '''
+            #checks for left to right downward diag win
+            if board[x][y] == '🔴' and board[x+1][y+1] == '🔴' and board[x+2][y+2] == '🔴' and board[x+3][y+3] == '🔴':
+                print(red_victory_msg)
+                return True
+            if board[x][y] == '🟡' and board[x+1][y+1] == '🟡' and board[x+2][y+2] == '🟡' and board[x+3][y+3] == '🟡':
+                print(yellow_victory_msg)
+                return True
+    return False
 
-createBoard()
-#+---+---+---+---+---+---+---+
-#|---|---|---|---|---|---|---|
+def column_input():
+    while True:  
+        column = input("Enter a column (A-G):")
+        if column.upper() in col_names:
+            if board[col_names.index(column.upper())][0] == "":
+                return column.upper()
+            elif (board[col_names.index(column.upper())][0] != ""):
+                print("That column is full - Pick another one")
+        else:
+            print("Invalid column input - try again:")
+def main():
+    createBoard()
+    playerTurn = 0
+    while not game_over(board):
+        if playerTurn % 2 == 0:
+            player = "🟡"
+            print("🟡 Yellow Turn 🟡")
+            column = column_input()
+            tokenDrop(player,column,board)
+            createBoard()
+
+        if playerTurn % 2 != 0:
+            player = "🔴"
+            print("🔴 Red Turn 🔴")
+            column = column_input()
+            tokenDrop(player,column,board)
+            createBoard()
+        playerTurn += 1
+    print("\nTurns taken: "+ str(playerTurn))
+
+main()
