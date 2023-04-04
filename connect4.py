@@ -1,3 +1,5 @@
+from graphics import *
+
 rows = 6
 cols = 7
 col_names = ['A','B','C','D','E','F','G']
@@ -187,9 +189,23 @@ def column_input():
                 print("That column is full - Pick another one")
         else:
             print("Invalid column input - try again:")
-def main():
+def drawboard(gui):
+    gui.rectangle(0, 80, 960, 880, "#3e67b3")
+    for y in range(rows):
+        for x in range(cols):
+            if board[x][y] == '🔴':
+                gui.ellipse(120 * (x+1), 80 + 107 * (y+1), 100, 100, "#d74f53")
+            elif board[x][y] == '🟡':
+                gui.ellipse(120 * (x+1), 80 + 107 * (y+1), 100, 100, "#dbc646")
+            else:
+                gui.ellipse(120 * (x+1), 80 + 107 * (y+1), 100, 100, "#ffffff")
+    
+    
+def initializeGameLoop():
     createBoard()
     playerTurn = 0
+    gui = graphics(960, 960, 'connect4')
+    drawboard(gui)
     while not game_over(board):
         if playerTurn % 2 == 0:
             player = "🟡"
@@ -197,6 +213,7 @@ def main():
             column = column_input()
             tokenDrop(player,column,board)
             createBoard()
+            drawboard(gui)
 
         if playerTurn % 2 != 0:
             player = "🔴"
@@ -204,7 +221,9 @@ def main():
             column = column_input()
             tokenDrop(player,column,board)
             createBoard()
+            drawboard(gui)
         playerTurn += 1
     print("\nTurns taken: "+ str(playerTurn))
 
-main()
+initializeGameLoop()
+
