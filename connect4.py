@@ -189,6 +189,14 @@ def column_input():
                 print("That column is full - Pick another one")
         else:
             print("Invalid column input - try again:")
+
+def column_click(gui,mousex,mousey):
+    ranges = {'A': 120 * (0+1), 'B': 120 * (1+1), 'C': 120 * (2+1), 
+              'D': 120 * (3+1), 'E': 120 * (4+1), 'F': 120 * (5+1), 'G': 120 * (6+1)}
+    for k,v in ranges.items():
+        if v - 50 < mousex < v + 50:
+            return k
+
 def drawboard(gui):
     gui.rectangle(0, 80, 960, 880, "#3e67b3")
     for y in range(rows):
@@ -210,17 +218,17 @@ def initializeGameLoop():
         if playerTurn % 2 == 0:
             player = "🟡"
             print("🟡 Yellow Turn 🟡")
-            column = column_input()
+            column = gui.set_left_click_action(column_click) #column_input()
             tokenDrop(player,column,board)
-            createBoard()
+            #createBoard()
             drawboard(gui)
 
         if playerTurn % 2 != 0:
             player = "🔴"
             print("🔴 Red Turn 🔴")
-            column = column_input()
+            column = gui.set_left_click_action(column_click) #column_input()
             tokenDrop(player,column,board)
-            createBoard()
+            #createBoard()
             drawboard(gui)
         playerTurn += 1
     print("\nTurns taken: "+ str(playerTurn))
