@@ -103,6 +103,7 @@ def tokenDrop(player, column, board):
     return False
         
 def game_over(board):
+    global gui
     boardX = len(board)
     boardY = len(board[0])
     red_victory_msg = "🔴 Red Wins 🔴"
@@ -112,18 +113,22 @@ def game_over(board):
             #checks for vertical win condition
             if board[x][y] == '🔴' and board[x][y+1] == '🔴' and board[x][y+2] == '🔴' and board[x][y+3] == '🔴':
                 print(red_victory_msg)
+                gui.text(0,0,"Red Wins!", "#d74f53",52)
                 return True
             if board[x][y] == '🟡' and board[x][y+1] == '🟡' and board[x][y+2] == '🟡' and board[x][y+3] == '🟡':
                 print(yellow_victory_msg)
+                gui.text(0,0,"Yellow Wins!", "#dbc646",52)
                 return True
     for y in range(boardY):
         for x in range(boardX - 3):
             #checks for horizonal win condition
             if board[x][y] == '🔴' and board[x+1][y] == '🔴' and board[x+2][y] == '🔴' and board[x+3][y] == '🔴':
                 print(red_victory_msg)
+                gui.text(0,0,"Red Wins!", "#d74f53")
                 return True
             if board[x][y] == '🟡' and board[x+1][y] == '🟡' and board[x+2][y] == '🟡' and board[x+3][y] == '🟡':
                 print(yellow_victory_msg)
+                gui.text(0,0,"Yellow Wins!", "#dbc646")
                 return True
     for x in range(boardX - 3):
         for y in range(3, boardY):
@@ -147,9 +152,11 @@ def game_over(board):
             '''
             if board[x][y] == '🔴' and board[x+1][y-1] == '🔴' and board[x+2][y-2] == '🔴' and board[x+3][y-3] == '🔴':
                 print(red_victory_msg)
+                gui.text(0,0,"Red Wins!", "#d74f53")
                 return True
             if board[x][y] == '🟡' and board[x+1][y-1] == '🟡' and board[x+2][y-2] == '🟡' and board[x+3][y-3] == '🟡':
                 print(yellow_victory_msg)
+                gui.text(0,0,"Yellow Wins!", "#dbc646")
                 return True
     for x in range(boardX - 3):
         for y in range(boardY - 3):
@@ -173,9 +180,11 @@ def game_over(board):
             #checks for left to right downward diag win
             if board[x][y] == '🔴' and board[x+1][y+1] == '🔴' and board[x+2][y+2] == '🔴' and board[x+3][y+3] == '🔴':
                 print(red_victory_msg)
+                gui.text(0,0,"Red Wins!", "#d74f53", size = 24)
                 return True
             if board[x][y] == '🟡' and board[x+1][y+1] == '🟡' and board[x+2][y+2] == '🟡' and board[x+3][y+3] == '🟡':
                 print(yellow_victory_msg)
+                gui.text(0,0,"Yellow Wins!", "#dbc646", size = 24)
                 return True
     return False
 
@@ -190,15 +199,33 @@ def column_input():
         else:
             print("Invalid column input - try again:")
 
+player = "🟡"
+
 def column_click(gui,mousex,mousey):
+    global player
+    global board
     ranges = {'A': 120 * (0+1), 'B': 120 * (1+1), 'C': 120 * (2+1), 
               'D': 120 * (3+1), 'E': 120 * (4+1), 'F': 120 * (5+1), 'G': 120 * (6+1)}
-    for k,v in ranges.items():
-        if v - 50 < mousex < v + 50:
-            return k
+    if game_over(board) == False:
+        for k,v in ranges.items():
+            if v - 50 < mousex < v + 50:
+                if board[col_names.index(k)][0] == "":
+                    tokenDrop(player,k,board)
+                    drawboard(gui)
+                    if player == "🟡":
+                        player = "🔴"
+                        gui.text(0,0,"Red's Turn", "#d74f53",52)
+                    else:
+                        player = "🟡"
+                        gui.text(0,0,"Yellow's Turn", "#dbc646",52)
+    if game_over(board) == True:
+        pass
+    
+
 
 def drawboard(gui):
     gui.rectangle(0, 80, 960, 880, "#3e67b3")
+    gui.rectangle(0,0,960,80, "#808080")
     for y in range(rows):
         for x in range(cols):
             if board[x][y] == '🔴':
@@ -208,27 +235,27 @@ def drawboard(gui):
             else:
                 gui.ellipse(120 * (x+1), 80 + 107 * (y+1), 100, 100, "#ffffff")
     
-    
+gui = graphics(960, 960, 'connect4')
 def initializeGameLoop():
     createBoard()
     playerTurn = 0
-    gui = graphics(960, 960, 'connect4')
     drawboard(gui)
+    gui.set_left_click_action(column_click) #column_input()
     while not game_over(board):
         if playerTurn % 2 == 0:
             player = "🟡"
+            column = column_input()
             print("🟡 Yellow Turn 🟡")
-            column = gui.set_left_click_action(column_click) #column_input()
             tokenDrop(player,column,board)
-            #createBoard()
+            createBoard()
             drawboard(gui)
 
         if playerTurn % 2 != 0:
             player = "🔴"
             print("🔴 Red Turn 🔴")
-            column = gui.set_left_click_action(column_click) #column_input()
+            column = column_input()
             tokenDrop(player,column,board)
-            #createBoard()
+            createBoard()
             drawboard(gui)
         playerTurn += 1
     print("\nTurns taken: "+ str(playerTurn))
