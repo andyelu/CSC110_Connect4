@@ -113,22 +113,34 @@ def game_over(board):
             #checks for vertical win condition
             if board[x][y] == '🔴' and board[x][y+1] == '🔴' and board[x][y+2] == '🔴' and board[x][y+3] == '🔴':
                 print(red_victory_msg)
-                gui.text(0,0,"Red Wins!", "#d74f53",52)
+                gui.rectangle(0,0,960,80, "black")
+                gui.text(355,10,"Red Wins!", "#d74f53",52)
+                gui.rectangle(0,33,300,20, "#d74f53")
+                gui.rectangle(660,33,300,20, "#d74f53")
                 return True
             if board[x][y] == '🟡' and board[x][y+1] == '🟡' and board[x][y+2] == '🟡' and board[x][y+3] == '🟡':
                 print(yellow_victory_msg)
-                gui.text(0,0,"Yellow Wins!", "#dbc646",52)
+                gui.rectangle(0,0,960,80, "black")
+                gui.text(330,10,"Yellow Wins!", "#dbc646",52)
+                gui.rectangle(0,33,300,20, "#dbc646")
+                gui.rectangle(660,33,300,20, "#dbc646")
                 return True
     for y in range(boardY):
         for x in range(boardX - 3):
             #checks for horizonal win condition
             if board[x][y] == '🔴' and board[x+1][y] == '🔴' and board[x+2][y] == '🔴' and board[x+3][y] == '🔴':
                 print(red_victory_msg)
-                gui.text(0,0,"Red Wins!", "#d74f53")
+                gui.rectangle(0,0,960,80, "black")
+                gui.text(355,10,"Red Wins!", "#d74f53",52)
+                gui.rectangle(0,33,300,20, "#d74f53")
+                gui.rectangle(660,33,300,20, "#d74f53")
                 return True
             if board[x][y] == '🟡' and board[x+1][y] == '🟡' and board[x+2][y] == '🟡' and board[x+3][y] == '🟡':
                 print(yellow_victory_msg)
-                gui.text(0,0,"Yellow Wins!", "#dbc646")
+                gui.rectangle(0,0,960,80, "black")
+                gui.text(330,10,"Yellow Wins!", "#dbc646",52)
+                gui.rectangle(0,33,300,20, "#dbc646")
+                gui.rectangle(660,33,300,20, "#dbc646")
                 return True
     for x in range(boardX - 3):
         for y in range(3, boardY):
@@ -152,11 +164,17 @@ def game_over(board):
             '''
             if board[x][y] == '🔴' and board[x+1][y-1] == '🔴' and board[x+2][y-2] == '🔴' and board[x+3][y-3] == '🔴':
                 print(red_victory_msg)
-                gui.text(0,0,"Red Wins!", "#d74f53")
+                gui.rectangle(0,0,960,80, "black")
+                gui.text(355,10,"Red Wins!", "#d74f53",52)
+                gui.rectangle(0,33,300,20, "#d74f53")
+                gui.rectangle(660,33,300,20, "#d74f53")
                 return True
             if board[x][y] == '🟡' and board[x+1][y-1] == '🟡' and board[x+2][y-2] == '🟡' and board[x+3][y-3] == '🟡':
                 print(yellow_victory_msg)
-                gui.text(0,0,"Yellow Wins!", "#dbc646")
+                gui.rectangle(0,0,960,80, "black")
+                gui.text(330,10,"Yellow Wins!", "#dbc646",52)
+                gui.rectangle(0,33,300,20, "#dbc646")
+                gui.rectangle(660,33,300,20, "#dbc646")
                 return True
     for x in range(boardX - 3):
         for y in range(boardY - 3):
@@ -180,11 +198,17 @@ def game_over(board):
             #checks for left to right downward diag win
             if board[x][y] == '🔴' and board[x+1][y+1] == '🔴' and board[x+2][y+2] == '🔴' and board[x+3][y+3] == '🔴':
                 print(red_victory_msg)
-                gui.text(0,0,"Red Wins!", "#d74f53", size = 24)
+                gui.rectangle(0,0,960,80, "black")
+                gui.text(355,10,"Red Wins!", "#d74f53",52)
+                gui.rectangle(0,33,300,20, "#d74f53")
+                gui.rectangle(660,33,300,20, "#d74f53")
                 return True
             if board[x][y] == '🟡' and board[x+1][y+1] == '🟡' and board[x+2][y+2] == '🟡' and board[x+3][y+3] == '🟡':
                 print(yellow_victory_msg)
-                gui.text(0,0,"Yellow Wins!", "#dbc646", size = 24)
+                gui.rectangle(0,0,960,80, "black")
+                gui.text(330,10,"Yellow Wins!", "#dbc646",52)
+                gui.rectangle(0,33,300,20, "#dbc646")
+                gui.rectangle(660,33,300,20, "#dbc646")
                 return True
     return False
 
@@ -214,18 +238,21 @@ def column_click(gui,mousex,mousey):
                     drawboard(gui)
                     if player == "🟡":
                         player = "🔴"
-                        gui.text(0,0,"Red's Turn", "#d74f53",52)
+                        gui.rectangle(0,0,960,80, "black")
+                        gui.text(355,10,"Red's Turn", "#d74f53", 52)
                     else:
                         player = "🟡"
-                        gui.text(0,0,"Yellow's Turn", "#dbc646",52)
+                        gui.rectangle(0,0,960,80, "black")
+                        gui.text(330,10,"Yellow's Turn", "#dbc646",52)
     if game_over(board) == True:
         pass
     
 
 
 def drawboard(gui):
-    gui.rectangle(0, 80, 960, 880, "#3e67b3")
-    gui.rectangle(0,0,960,80, "#808080")
+    gui.rectangle(0, 80, 960, 880, "#3254ad")
+    gui.rectangle(0,0,960,80, "black")
+    gui.text(330,10,"Yellow's Turn", "#dbc646",52)
     for y in range(rows):
         for x in range(cols):
             if board[x][y] == '🔴':
