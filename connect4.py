@@ -245,9 +245,38 @@ def column_click(gui,mousex,mousey):
                         gui.rectangle(0,0,960,80, "black")
                         gui.text(330,10,"Yellow's Turn", "#dbc646",52)
     if game_over(board) == True:
-        pass
-    
+        gui.rectangle(355,355,250,130, "#6c757d")
+        gui.rectangle(360,360,240,120, "#5a6269")
+        gui.text(385,377, "Click Here to \n  Play Again", "white", 32)
+        gui.set_left_click_action(restartgame)
+        
+def restartgame(gui,mousex,mousey):
+    if 360 <= mousex <= 600 and 360 <= mousey <= 480:
+        global board
+        gui.clear()
+        board = [['','','','','',''],['','','','','',''],['','','','','',''],
+            ['','','','','',''],['','','','','',''],['','','','','',''],
+            ['','','','','','']]
+        drawboard(gui)
+        playerTurn = 0
+        gui.set_left_click_action(column_click) #column_input()
+        while not game_over(board):
+            if playerTurn % 2 == 0:
+                player = "🟡"
+                column = column_input()
+                print("🟡 Yellow Turn 🟡")
+                tokenDrop(player,column,board)
+                createBoard()
+                drawboard(gui)
 
+            if playerTurn % 2 != 0:
+                player = "🔴"
+                print("🔴 Red Turn 🔴")
+                column = column_input()
+                tokenDrop(player,column,board)
+                createBoard()
+                drawboard(gui)
+            playerTurn += 1
 
 def drawboard(gui):
     gui.rectangle(0, 80, 960, 880, "#3254ad")
@@ -261,7 +290,7 @@ def drawboard(gui):
                 gui.ellipse(120 * (x+1), 80 + 107 * (y+1), 100, 100, "#dbc646")
             else:
                 gui.ellipse(120 * (x+1), 80 + 107 * (y+1), 100, 100, "#ffffff")
-    
+
 gui = graphics(960, 960, 'connect4')
 def initializeGameLoop():
     createBoard()
@@ -285,6 +314,7 @@ def initializeGameLoop():
             createBoard()
             drawboard(gui)
         playerTurn += 1
+
     print("\nTurns taken: "+ str(playerTurn))
 
 initializeGameLoop()
