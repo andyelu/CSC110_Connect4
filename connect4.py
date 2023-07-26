@@ -7,100 +7,22 @@ board = [['','','','','',''],['','','','','',''],['','','','','',''],
          ['','','','','',''],['','','','','',''],['','','','','',''],
          ['','','','','','']]
 
-def createBoard():
-    print("    A     B     C     D     E     F     G  ", end = "")
-    for y in range(rows):
-        print("\n +-----+-----+-----+-----+-----+-----+-----+")   
-        print(' |', end = '')
-        for x in range(cols):
-            if board[x][y] == '🔴':
-                print('  ' + board[x][y], end = ' |')
-            elif board[x][y] == '🟡':
-                print('  ' + board[x][y], end = ' |')
-            else:
-                print(' ' + board[x][y], end = '    |')
-    print("\n +-----+-----+-----+-----+-----+-----+-----+")
-
 def tokenDrop(player, column, board):
-    if column == 'A':
-        #if last slot is empty aka column empty, token places on last slot
-        if board[0][5] == '':
-            board[0][5] = player
+    column_mapping = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6}
+    col_idx = column_mapping.get(column, None)
+
+    if col_idx is not None:
+        if board[col_idx][5] == '':
+            board[col_idx][5] = player
             return True
         else:
-            for i in range(1,len(board[0])):
-                #if there is item in spot, places token in next open spot
-                if board[0][i] != '': 
-                    board[0][i-1] = player
+            for i in range(1, len(board[col_idx])):
+                if board[col_idx][i] != '':
+                    board[col_idx][i - 1] = player
                     return True
-    if column == 'B':
-        #if last slot is empty aka column empty, token places on last slot
-        if board[1][5] == '':
-            board[1][5] = player
-            return True
-        else:
-            for i in range(1,len(board[1])):
-                #if there is item in spot, places token in next open spot
-                if board[1][i] != '': 
-                    board[1][i-1] = player
-                    return True
-    if column == 'C':
-        #if last slot is empty aka column empty, token places on last slot
-        if board[2][5] == '':
-            board[2][5] = player
-            return True
-        else:
-            for i in range(1,len(board[2])):
-                #if there is item in spot, places token in next open spot
-                if board[2][i] != '': 
-                    board[2][i-1] = player
-                    return True
-    if column == 'D':
-        #if last slot is empty aka column empty, token places on last slot
-        if board[3][5] == '':
-            board[3][5] = player
-            return True
-        else:
-            for i in range(1,len(board[3])):
-                #if there is item in spot, places token in next open spot
-                if board[3][i] != '': 
-                    board[3][i-1] = player
-                    return True
-    if column == 'E':
-        #if last slot is empty aka column empty, token places on last slot
-        if board[4][5] == '':
-            board[4][5] = player
-            return True
-        else:
-            for i in range(1,len(board[4])):
-                #if there is item in spot, places token in next open spot
-                if board[4][i] != '': 
-                    board[4][i-1] = player
-                    return True
-    if column == 'F':
-        #if last slot is empty aka column empty, token places on last slot
-        if board[5][5] == '':
-            board[5][5] = player
-            return True
-        else:
-            for i in range(1,len(board[5])):
-                #if there is item in spot, places token in next open spot
-                if board[5][i] != '': 
-                    board[5][i-1] = player
-                    return True
-        
-    if column == 'G':
-        #if last slot is empty aka column empty, token places on last slot
-        if board[6][5] == '':
-            board[6][5] = player
-            return True
-        else:
-            for i in range(1,len(board[6])):
-                #if there is item in spot, places token in next open spot
-                if board[6][i] != '': 
-                    board[6][i-1] = player
-                    return True
+
     return False
+
         
 def game_over(board):
     global gui
@@ -112,14 +34,12 @@ def game_over(board):
         for y in range(boardY - 3):
             #checks for vertical win condition
             if board[x][y] == '🔴' and board[x][y+1] == '🔴' and board[x][y+2] == '🔴' and board[x][y+3] == '🔴':
-                print(red_victory_msg)
                 gui.rectangle(0,0,960,80, "black")
                 gui.text(355,10,"Red Wins!", "#d74f53",52)
                 gui.rectangle(0,33,300,20, "#d74f53")
                 gui.rectangle(660,33,300,20, "#d74f53")
                 return True
             if board[x][y] == '🟡' and board[x][y+1] == '🟡' and board[x][y+2] == '🟡' and board[x][y+3] == '🟡':
-                print(yellow_victory_msg)
                 gui.rectangle(0,0,960,80, "black")
                 gui.text(330,10,"Yellow Wins!", "#dbc646",52)
                 gui.rectangle(0,33,300,20, "#dbc646")
@@ -129,14 +49,12 @@ def game_over(board):
         for x in range(boardX - 3):
             #checks for horizonal win condition
             if board[x][y] == '🔴' and board[x+1][y] == '🔴' and board[x+2][y] == '🔴' and board[x+3][y] == '🔴':
-                print(red_victory_msg)
                 gui.rectangle(0,0,960,80, "black")
                 gui.text(355,10,"Red Wins!", "#d74f53",52)
                 gui.rectangle(0,33,300,20, "#d74f53")
                 gui.rectangle(660,33,300,20, "#d74f53")
                 return True
             if board[x][y] == '🟡' and board[x+1][y] == '🟡' and board[x+2][y] == '🟡' and board[x+3][y] == '🟡':
-                print(yellow_victory_msg)
                 gui.rectangle(0,0,960,80, "black")
                 gui.text(330,10,"Yellow Wins!", "#dbc646",52)
                 gui.rectangle(0,33,300,20, "#dbc646")
@@ -163,14 +81,12 @@ def game_over(board):
               0   1   2   3   4   5   6
             '''
             if board[x][y] == '🔴' and board[x+1][y-1] == '🔴' and board[x+2][y-2] == '🔴' and board[x+3][y-3] == '🔴':
-                print(red_victory_msg)
                 gui.rectangle(0,0,960,80, "black")
                 gui.text(355,10,"Red Wins!", "#d74f53",52)
                 gui.rectangle(0,33,300,20, "#d74f53")
                 gui.rectangle(660,33,300,20, "#d74f53")
                 return True
             if board[x][y] == '🟡' and board[x+1][y-1] == '🟡' and board[x+2][y-2] == '🟡' and board[x+3][y-3] == '🟡':
-                print(yellow_victory_msg)
                 gui.rectangle(0,0,960,80, "black")
                 gui.text(330,10,"Yellow Wins!", "#dbc646",52)
                 gui.rectangle(0,33,300,20, "#dbc646")
@@ -197,14 +113,12 @@ def game_over(board):
             '''
             #checks for left to right downward diag win
             if board[x][y] == '🔴' and board[x+1][y+1] == '🔴' and board[x+2][y+2] == '🔴' and board[x+3][y+3] == '🔴':
-                print(red_victory_msg)
                 gui.rectangle(0,0,960,80, "black")
                 gui.text(355,10,"Red Wins!", "#d74f53",52)
                 gui.rectangle(0,33,300,20, "#d74f53")
                 gui.rectangle(660,33,300,20, "#d74f53")
                 return True
             if board[x][y] == '🟡' and board[x+1][y+1] == '🟡' and board[x+2][y+2] == '🟡' and board[x+3][y+3] == '🟡':
-                print(yellow_victory_msg)
                 gui.rectangle(0,0,960,80, "black")
                 gui.text(330,10,"Yellow Wins!", "#dbc646",52)
                 gui.rectangle(0,33,300,20, "#dbc646")
@@ -266,7 +180,6 @@ def restartgame(gui,mousex,mousey):
                 column = column_input()
                 print("🟡 Yellow Turn 🟡")
                 tokenDrop(player,column,board)
-                createBoard()
                 drawboard(gui)
 
             if playerTurn % 2 != 0:
@@ -274,7 +187,6 @@ def restartgame(gui,mousex,mousey):
                 print("🔴 Red Turn 🔴")
                 column = column_input()
                 tokenDrop(player,column,board)
-                createBoard()
                 drawboard(gui)
             playerTurn += 1
 
@@ -293,7 +205,6 @@ def drawboard(gui):
 
 gui = graphics(960, 960, 'connect4')
 def initializeGameLoop():
-    createBoard()
     playerTurn = 0
     drawboard(gui)
     gui.set_left_click_action(column_click) #column_input()
@@ -303,7 +214,6 @@ def initializeGameLoop():
             column = column_input()
             print("🟡 Yellow Turn 🟡")
             tokenDrop(player,column,board)
-            createBoard()
             drawboard(gui)
 
         if playerTurn % 2 != 0:
@@ -311,7 +221,6 @@ def initializeGameLoop():
             print("🔴 Red Turn 🔴")
             column = column_input()
             tokenDrop(player,column,board)
-            createBoard()
             drawboard(gui)
         playerTurn += 1
 
